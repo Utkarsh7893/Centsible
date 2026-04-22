@@ -9,6 +9,8 @@ import Background3D from './components/Background3D';
 
 import Savings from './pages/Savings';
 import Borrowed from './pages/Borrowed';
+import About from './pages/About';
+import Terms from './pages/Terms';
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useStore(state => state.isAuthenticated);
@@ -17,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
     <div className="flex h-screen overflow-hidden">
       <Background3D />
       <Sidebar />
-      <div className="flex-1 ml-64 overflow-y-auto">
+      <div className="flex-1 w-full md:ml-64 pb-16 md:pb-0 overflow-y-auto">
         {children}
       </div>
     </div>
@@ -40,6 +42,8 @@ export default function App() {
         <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
         <Route path="/savings" element={<ProtectedRoute><Savings /></ProtectedRoute>} />
         <Route path="/borrowed" element={<ProtectedRoute><Borrowed /></ProtectedRoute>} />
+        <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+        <Route path="/terms" element={<ProtectedRoute><Terms /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

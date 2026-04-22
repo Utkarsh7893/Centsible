@@ -1,28 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #10b981;
-  --color-primary-dark: #059669;
-  --color-dark-bg: #0b0f19;
-  --color-dark-card: #151a2a;
+  --color-primary: #e62429; /* Marvel Red */
+  --color-primary-dark: #b81d20;
+  --color-dark-bg: #0a0b10; /* Deep Space Blue */
+  --color-dark-card: #12141f;
+  --color-accent: #fbc02d; /* Gold */
 }
 
 @layer base {
   body {
     @apply bg-dark-bg text-gray-100 font-sans antialiased m-0 p-0 overflow-x-hidden;
-    /* We place the generated image as a dim background cover */
-    background-image: url('/bg-finance.png');
-    background-size: cover;
-    background-position: center;
+    /* Marvel-esque gradient background */
+    background: radial-gradient(circle at top right, #1a1c29, #0a0b10);
     background-attachment: fixed;
-    background-blend-mode: overlay;
-    background-color: rgba(11, 15, 25, 0.85); /* dim overlay */
+    /* Hide scrollbar for an app-like feel */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 }
 
 /* Glassmorphism utility for cards */
 .glass-panel {
-  @apply bg-[#151a2ad9] backdrop-blur-md border border-gray-700/50 shadow-2xl rounded-2xl;
+  @apply bg-[#12141fe6] backdrop-blur-xl border border-gray-700/50 shadow-2xl rounded-2xl;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
 }
 
 /* Smooth input styling */
@@ -32,5 +37,5 @@
 
 /* Primary Button */
 .btn-primary {
-  @apply bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-primary/30 active:scale-95;
+  @apply bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl transition-all shadow-[0_0_15px_rgba(230,36,41,0.4)] hover:shadow-[0_0_25px_rgba(230,36,41,0.6)] active:scale-95;
 }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../store';
 import { Target, Plus } from 'lucide-react';
+import SpinWheel from '../components/SpinWheel';
 
 export default function Savings() {
   const [goals, setGoals] = useState([]);
   const [name, setName] = useState('');
   const [targetAmount, setTargetAmount] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [showWheel, setShowWheel] = useState(false);
 
   const fetchGoals = async () => {
     const { data } = await api.get('/savings');
@@ -27,6 +29,7 @@ export default function Savings() {
     if (amount && !isNaN(amount)) {
       await api.put(`/savings/${id}/add`, { amount });
       fetchGoals();
+      setShowWheel(true);
     }
   };
 
@@ -36,7 +39,7 @@ export default function Savings() {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="glass-panel p-6 lg:col-span-1 h-fit">
-          <h2 className="text-xl font-bold mb-6 text-emerald-400">Create New Goal</h2>
+          <h2 className="text-xl font-bold mb-6 text-[#fbc02d]">Create New Goal</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm text-gray-400 mb-1">Goal Name</label>
@@ -58,29 +61,30 @@ export default function Savings() {
           {goals.map(goal => {
             const progress = Math.min((goal.savedAmount / goal.targetAmount) * 100, 100);
             return (
-              <div key={goal.id} className="glass-panel p-6 flex flex-col justify-between">
+              <div key={goal.id} className="glass-panel p-6 flex flex-col justify-between group hover:border-primary/50 transition-colors">
                 <div>
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-bold text-lg">{goal.name}</h3>
-                    <span className="text-xs bg-gray-800 px-2 py-1 rounded text-gray-400">{new Date(goal.deadline).toLocaleDateString()}</span>
+                    <span className="text-xs bg-gray-800 px-2 py-1 rounded text-gray-400 border border-gray-700">{new Date(goal.deadline).toLocaleDateString()}</span>
                   </div>
                   <div className="flex justify-between text-sm mb-4">
-                    <span className="text-primary font-bold">₹{goal.savedAmount}</span>
+                    <span className="text-primary font-bold text-lg">₹{goal.savedAmount}</span>
                     <span className="text-gray-500">of ₹{goal.targetAmount}</span>
                   </div>
-                  <div className="w-full bg-gray-800 rounded-full h-3 mb-6 overflow-hidden">
-                    <div className="bg-gradient-to-r from-emerald-500 to-primary h-3 rounded-full transition-all duration-1000" style={{ width: `${progress}%` }}></div>
+                  <div className="w-full bg-gray-800 rounded-full h-3 mb-6 overflow-hidden border border-gray-700">
+                    <div className="bg-gradient-to-r from-[#fbc02d] to-primary h-3 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(230,36,41,0.5)]" style={{ width: `${progress}%` }}></div>
                   </div>
                 </div>
-                <button onClick={() => addFunds(goal.id, goal.savedAmount)} className="w-full py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg flex items-center justify-center gap-2 transition-colors">
-                  <Plus size={16} /> Add Funds
+                <button onClick={() => addFunds(goal.id, goal.savedAmount)} className="w-full py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-xl flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95">
+                  <Plus size={18} className="text-primary" /> Add Funds
                 </button>
               </div>
             );
           })}
-          {goals.length === 0 && <div className="p-8 text-center text-gray-500 col-span-full">No savings goals set. Time to start saving!</div>}
+          {goals.length === 0 && <div className="p-8 text-center text-gray-500 col-span-full border border-dashed border-gray-700 rounded-2xl bg-gray-900/50">No savings goals set. Time to assemble your wealth!</div>}
         </div>
       </div>
+      {showWheel && <SpinWheel onClose={() => setShowWheel(false)} />}
     </div>
   );
 }
