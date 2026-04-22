@@ -11,16 +11,21 @@
 @layer base {
   body {
     @apply bg-dark-bg text-gray-100 font-sans antialiased m-0 p-0 overflow-x-hidden;
-    /* Marvel-esque gradient background */
-    background: radial-gradient(circle at top right, #1a1c29, #0a0b10);
+    /* Multi-layer Marvel cosmic background */
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(230, 36, 41, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 20%, rgba(11, 74, 153, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(251, 192, 45, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, rgba(81, 45, 168, 0.1) 0%, transparent 35%),
+      linear-gradient(180deg, #0a0b10 0%, #0f1118 50%, #0a0b10 100%);
     background-attachment: fixed;
     /* Hide scrollbar for an app-like feel */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   
   body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    display: none;
   }
 }
 
@@ -38,4 +43,53 @@
 /* Primary Button */
 .btn-primary {
   @apply bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl transition-all shadow-[0_0_15px_rgba(230,36,41,0.4)] hover:shadow-[0_0_25px_rgba(230,36,41,0.6)] active:scale-95;
+}
+
+/* Slide-up animation for mobile drawer */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+  animation: slideUp 0.25s ease-out forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Pulse glow for hero cards */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(230, 36, 41, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(230, 36, 41, 0.4); }
+}
+.hero-card-glow:hover {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Floating particles background overlay */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+}
+
+/* Custom scrollbar for specific containers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 2px;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #374151 transparent;
 }

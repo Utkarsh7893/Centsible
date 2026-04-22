@@ -8,15 +8,17 @@ generator client {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  email        String?        @unique
-  password     String?
-  isGuest      Boolean        @default(false)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  expenses     Expense[]
-  savingsGoals SavingsGoal[]
-  transactions Transaction[]
+  id             String         @id @default(uuid())
+  email          String?        @unique
+  password       String?
+  isGuest        Boolean        @default(false)
+  monthlyBudget  Float          @default(25000)
+  termsAccepted  Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  expenses       Expense[]
+  savingsGoals   SavingsGoal[]
+  transactions   Transaction[]
 }
 
 model Expense {

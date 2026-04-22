@@ -37,7 +37,7 @@ app.post('/api/auth/register', async (req, res) => {
     data: { email, password: hashedPassword, isGuest: false }
   });
   const token = jwt.sign({ id: user.id }, JWT_SECRET);
-  res.json({ token, user: { id: user.id, email: user.email, isGuest: user.isGuest } });
+  res.json({ token, user: { id: user.id, email: user.email, isGuest: user.isGuest, termsAccepted: user.termsAccepted } });
 });
 
 app.post('/api/auth/login', async (req, res) => {
@@ -49,20 +49,58 @@ app.post('/api/auth/login', async (req, res) => {
   if (!validPassword) return res.status(400).json({ error: 'Invalid credentials' });
   
   const token = jwt.sign({ id: user.id }, JWT_SECRET);
-  res.json({ token, user: { id: user.id, email: user.email, isGuest: user.isGuest } });
+  res.json({ token, user: { id: user.id, email: user.email, isGuest: user.isGuest, termsAccepted: user.termsAccepted } });
 });
 
 app.post('/api/auth/guest', async (req, res) => {
   const user = await prisma.user.create({
-    data: { isGuest: true }
+    data: { isGuest: true, termsAccepted: false }
   });
   const token = jwt.sign({ id: user.id }, JWT_SECRET);
-  res.json({ token, user: { id: user.id, isGuest: user.isGuest } });
+  res.json({ token, user: { id: user.id, isGuest: user.isGuest, termsAccepted: false } });
+});
+
+// Simulated Google Auth — creates or finds user by email
+app.post('/api/auth/google', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email is required for Google sign-in' });
+  
+  let user = await prisma.user.findUnique({ where: { email } });
+  if (!user) {
+    user = await prisma.user.create({
+      data: { email, isGuest: false, password: null }
+    });
+  }
+  const token = jwt.sign({ id: user.id }, JWT_SECRET);
+  res.json({ token, user: { id: user.id, email: user.email, isGuest: user.isGuest, termsAccepted: user.termsAccepted } });
 });
 
 app.get('/api/auth/me', auth, async (req, res) => {
   const user = await prisma.user.findUnique({ where: { id: req.user.id } });
-  res.json({ id: user.id, email: user.email, isGuest: user.isGuest });
+  res.json({ id: user.id, email: user.email, isGuest: user.isGuest, monthlyBudget: user.monthlyBudget, termsAccepted: user.termsAccepted });
+});
+
+// --- USER BUDGET ---
+app.put('/api/user/budget', auth, async (req, res) => {
+  const { monthlyBudget } = req.body;
+  const budget = parseFloat(monthlyBudget);
+  if (isNaN(budget) || budget < 5 || budget > 50000) {
+    return res.status(400).json({ error: 'Monthly budget must be between ₹5 and ₹50,000' });
+  }
+  const updated = await prisma.user.update({
+    where: { id: req.user.id },
+    data: { monthlyBudget: budget }
+  });
+  res.json({ monthlyBudget: updated.monthlyBudget });
+});
+
+// --- USER TERMS ACCEPTANCE ---
+app.put('/api/user/accept-terms', auth, async (req, res) => {
+  const updated = await prisma.user.update({
+    where: { id: req.user.id },
+    data: { termsAccepted: true }
+  });
+  res.json({ termsAccepted: updated.termsAccepted });
 });
 
 // --- EXPENSE ROUTES ---
@@ -134,6 +172,7 @@ app.put('/api/transactions/:id/status', auth, async (req, res) => {
 
 // --- DASHBOARD ROUTE ---
 app.get('/api/dashboard', auth, async (req, res) => {
+  const user = await prisma.user.findUnique({ where: { id: req.user.id } });
   const expenses = await prisma.expense.findMany({ where: { userId: req.user.id } });
   const tx = await prisma.transaction.findMany({ where: { userId: req.user.id } });
   
@@ -141,12 +180,10 @@ app.get('/api/dashboard', auth, async (req, res) => {
   const borrowed = tx.filter(t => t.type === 'BORROWED' && t.status === 'PENDING').reduce((sum, t) => sum + t.amount, 0);
   const lent = tx.filter(t => t.type === 'LENT' && t.status === 'PENDING').reduce((sum, t) => sum + t.amount, 0);
   
-  // Fake total balance calculation: Assuming starting fixed income of 25000 (from projectIdea)
-  // For a real app, we'd track income too, but here we can just show Net = 25000 - expenses + borrowed - lent
-  const defaultIncome = 25000;
-  const totalBalance = defaultIncome - totalExpenses + borrowed - lent;
+  const monthlyBudget = user.monthlyBudget || 25000;
+  const totalBalance = monthlyBudget - totalExpenses + borrowed - lent;
 
-  res.json({ totalBalance, totalExpenses, borrowed, lent });
+  res.json({ totalBalance, totalExpenses, borrowed, lent, monthlyBudget });
 });
 
 const PORT = process.env.PORT || 5000;
