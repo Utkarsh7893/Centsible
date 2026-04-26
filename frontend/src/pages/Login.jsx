@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { api, useStore } from '../store';
 import { ArrowRight, UserCircle, Mail, Lock, Eye, EyeOff, Zap, Shield, Target, FileText } from 'lucide-react';
 import Background3D from '../components/Background3D';
-import ThemeToggle from '../components/ThemeToggle';
+
 import logoImg from '../assets/logo.png';
 import logoLightImg from '../assets/logo_light.png';
 
@@ -137,10 +137,7 @@ export default function Login() {
     <div className="min-h-screen flex relative overflow-hidden">
       <Background3D />
       
-      {/* Theme Toggle Top Right */}
-      <div className="absolute top-6 right-6 z-50">
-        <ThemeToggle />
-      </div>
+
 
       {/* Left — Hero Branding (desktop only) */}
       <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-12 relative z-10">

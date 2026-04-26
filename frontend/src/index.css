@@ -71,7 +71,7 @@
 
 /* Smooth input styling — light by default, dark via class */
 .input-field {
-  @apply w-full rounded-xl px-4 py-3 outline-none transition-all;
+  @apply w-full min-w-0 max-w-full appearance-none rounded-xl px-4 py-3 outline-none transition-all;
   background-color: #f1f5f9;
   border: 1.5px solid #cbd5e1;
   color: #0f172a;

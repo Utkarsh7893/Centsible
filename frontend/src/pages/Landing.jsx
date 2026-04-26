@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Zap, PiggyBank, Target, Sparkles, ArrowRight, SmartphoneNfc, BarChart3, Users, ChevronDown, Code, Lightbulb } from 'lucide-react';
 import Background3D from '../components/Background3D';
@@ -10,13 +10,20 @@ import ThemeToggle from '../components/ThemeToggle';
 
 export default function Landing() {
   const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       <Background3D />
 
       {/* Floating Theme Toggle */}
-      <div className="fixed top-20 right-4 sm:right-6 z-50 bg-white/50 dark:bg-black/50 backdrop-blur-md rounded-full shadow-lg border border-gray-200 dark:border-gray-800">
+      <div className={`fixed top-20 right-4 sm:right-6 z-50 bg-white/50 dark:bg-black/50 backdrop-blur-md rounded-full shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-300 ${isScrolled ? 'opacity-0 pointer-events-none translate-y-[-10px]' : 'opacity-100 translate-y-0'}`}>
         <ThemeToggle />
       </div>
 
