@@ -51,13 +51,13 @@ export default function SpinWheel({ onClose }) {
       <div className="glass-panel w-full max-w-md p-6 flex flex-col items-center relative animate-fade-in">
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white p-2"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 dark:text-white p-2"
         >
           <X size={24} />
         </button>
 
         <div className="mb-6 text-center">
-          <h2 className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center justify-center gap-2">
             <Trophy className="text-[#fbc02d]" /> Savings Reward!
           </h2>
           <p className="text-gray-400 text-sm">Spin the wheel of destiny for your financial quote.</p>
@@ -103,7 +103,7 @@ export default function SpinWheel({ onClose }) {
           </button>
         ) : (
           <div className="mt-4 p-4 bg-[#1a1c29] border border-primary/30 rounded-xl w-full text-center animate-fade-in shadow-[0_0_20px_rgba(230,36,41,0.2)]">
-            <p className="text-white font-medium italic text-lg leading-relaxed">
+            <p className="text-gray-900 dark:text-white font-medium italic text-lg leading-relaxed">
               {quote}
             </p>
           </div>

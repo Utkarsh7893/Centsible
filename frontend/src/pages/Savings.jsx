@@ -42,15 +42,15 @@ export default function Savings() {
           <h2 className="text-xl font-bold mb-6 text-[#fbc02d]">Create New Goal</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Goal Name</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Goal Name</label>
               <input type="text" required className="input-field" value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Target Amount (₹)</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Target Amount (₹)</label>
               <input type="number" required className="input-field" value={targetAmount} onChange={(e) => setTargetAmount(e.target.value)} />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Deadline</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Deadline</label>
               <input type="date" required className="input-field" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
             </div>
             <button type="submit" className="btn-primary w-full mt-4">Start Saving</button>
@@ -65,23 +65,23 @@ export default function Savings() {
                 <div>
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-bold text-lg">{goal.name}</h3>
-                    <span className="text-xs bg-gray-800 px-2 py-1 rounded text-gray-400 border border-gray-700">{new Date(goal.deadline).toLocaleDateString()}</span>
+                    <span className="text-xs bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded text-gray-700 dark:text-gray-400 border border-gray-300 dark:border-gray-700">{new Date(goal.deadline).toLocaleDateString()}</span>
                   </div>
                   <div className="flex justify-between text-sm mb-4">
                     <span className="text-primary font-bold text-lg">₹{goal.savedAmount}</span>
-                    <span className="text-gray-500">of ₹{goal.targetAmount}</span>
+                    <span className="text-gray-700 dark:text-gray-400">of ₹{goal.targetAmount}</span>
                   </div>
-                  <div className="w-full bg-gray-800 rounded-full h-3 mb-6 overflow-hidden border border-gray-700">
+                  <div className="w-full bg-slate-100 dark:bg-gray-800 rounded-full h-3 mb-6 overflow-hidden border border-gray-300 dark:border-gray-700">
                     <div className="bg-gradient-to-r from-[#fbc02d] to-primary h-3 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(230,36,41,0.5)]" style={{ width: `${progress}%` }}></div>
                   </div>
                 </div>
-                <button onClick={() => addFunds(goal.id, goal.savedAmount)} className="w-full py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-xl flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95">
+                <button onClick={() => addFunds(goal.id, goal.savedAmount)} className="w-full py-3 bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-slate-800 dark:text-white border border-slate-200 dark:border-transparent rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95">
                   <Plus size={18} className="text-primary" /> Add Funds
                 </button>
               </div>
             );
           })}
-          {goals.length === 0 && <div className="p-8 text-center text-gray-500 col-span-full border border-dashed border-gray-700 rounded-2xl bg-gray-900/50">No savings goals set. Time to assemble your wealth!</div>}
+          {goals.length === 0 && <div className="p-8 text-center text-gray-700 dark:text-gray-400 col-span-full border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-slate-50 dark:bg-gray-900/50">No savings goals set. Time to assemble your wealth!</div>}
         </div>
       </div>
       {showWheel && <SpinWheel onClose={() => setShowWheel(false)} />}

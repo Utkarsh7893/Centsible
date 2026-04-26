@@ -39,21 +39,21 @@ export default function Expenses() {
           <h2 className="text-xl font-bold mb-6 flex items-center gap-2"><Plus size={20} className="text-primary"/> Add Expense</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Amount</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Amount</label>
               <input type="number" required className="input-field" value={amount} onChange={(e) => setAmount(e.target.value)} />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Category</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Category</label>
               <select className="input-field" value={category} onChange={(e) => setCategory(e.target.value)}>
                 {categories.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Date</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Date</label>
               <input type="date" required className="input-field" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Note (Important!)</label>
+              <label className="block text-sm text-gray-700 dark:text-gray-400 mb-1">Note (Important!)</label>
               <textarea rows="3" className="input-field" value={note} onChange={(e) => setNote(e.target.value)} />
             </div>
             <button type="submit" className="btn-primary w-full">Save Expense</button>
@@ -65,7 +65,7 @@ export default function Expenses() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-gray-700 text-gray-400">
+                <tr className="border-b border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-400">
                   <th className="py-3 px-4">Date</th>
                   <th className="py-3 px-4">Category</th>
                   <th className="py-3 px-4">Note</th>
@@ -75,13 +75,13 @@ export default function Expenses() {
               </thead>
               <tbody>
                 {expenses.map(exp => (
-                  <tr key={exp.id} className="border-b border-gray-800/50 hover:bg-white/5 transition-colors">
-                    <td className="py-4 px-4 text-gray-300">{new Date(exp.date).toLocaleDateString()}</td>
-                    <td className="py-4 px-4"><span className="px-3 py-1 bg-gray-800 rounded-full text-xs font-semibold">{exp.category}</span></td>
-                    <td className="py-4 px-4 text-gray-300">{exp.note || '-'}</td>
-                    <td className="py-4 px-4 font-bold text-red-400">₹{exp.amount}</td>
+                  <tr key={exp.id} className="border-b border-gray-200 dark:border-gray-800/50 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <td className="py-4 px-4 text-slate-700 dark:text-gray-300">{new Date(exp.date).toLocaleDateString()}</td>
+                    <td className="py-4 px-4"><span className="px-3 py-1 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 rounded-full text-xs font-semibold border border-slate-200 dark:border-transparent">{exp.category}</span></td>
+                    <td className="py-4 px-4 text-slate-700 dark:text-gray-300">{exp.note || '-'}</td>
+                    <td className="py-4 px-4 font-bold text-red-500 dark:text-red-400">₹{exp.amount}</td>
                     <td className="py-4 px-4 text-right">
-                      <button onClick={() => handleDelete(exp.id)} className="text-gray-500 hover:text-red-500 transition-colors">
+                      <button onClick={() => handleDelete(exp.id)} className="text-slate-400 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors">
                         <Trash2 size={18} />
                       </button>
                     </td>
@@ -89,7 +89,7 @@ export default function Expenses() {
                 ))}
               </tbody>
             </table>
-            {expenses.length === 0 && <div className="p-8 text-center text-gray-500">No expenses recorded yet.</div>}
+            {expenses.length === 0 && <div className="p-8 text-center text-gray-700 dark:text-gray-400">No expenses recorded yet.</div>}
           </div>
         </div>
       </div>

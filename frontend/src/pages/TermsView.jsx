@@ -14,7 +14,7 @@ export default function TermsView() {
         {/* Back Button */}
         <button
           onClick={() => navigate('/login')}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8 group"
+          className="flex items-center gap-2 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white transition-colors mb-8 group"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
           <span className="text-sm font-medium">Back to Login</span>
@@ -22,24 +22,24 @@ export default function TermsView() {
 
         <div className="glass-panel p-6 md:p-10">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8 border-b border-gray-800 pb-6">
+          <div className="flex items-center gap-4 mb-8 border-b border-gray-200 dark:border-gray-800 pb-6">
             <div className="p-3 bg-red-500/20 rounded-xl">
               <ShieldAlert className="text-primary" size={32} />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">Terms & Conditions</h1>
-              <p className="text-sm text-gray-400">Finance Flow — Full Terms of Service</p>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Terms & Conditions</h1>
+              <p className="text-sm text-gray-700 dark:text-gray-400">Finance Flow — Full Terms of Service</p>
             </div>
           </div>
 
           {/* Terms Content */}
-          <div className="text-gray-400 space-y-6 custom-scrollbar">
+          <div className="text-gray-700 dark:text-gray-400 space-y-6 custom-scrollbar">
             <p className="text-gray-300 leading-relaxed">
               Welcome to the S.H.I.E.L.D. Protocol for Financial Management. By using Finance Flow, you agree to the following terms and conditions. Please read them carefully before proceeding.
             </p>
 
             <div>
-              <h3 className="text-lg text-white font-semibold mb-3 flex items-center gap-2">
+              <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3 flex items-center gap-2">
                 <span className="w-7 h-7 rounded-lg bg-primary/20 text-primary text-sm font-bold flex items-center justify-center">1</span>
                 Data Privacy & Security
               </h3>
@@ -49,7 +49,7 @@ export default function TermsView() {
             </div>
 
             <div>
-              <h3 className="text-lg text-white font-semibold mb-3 flex items-center gap-2">
+              <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3 flex items-center gap-2">
                 <span className="w-7 h-7 rounded-lg bg-[#0b4a99]/20 text-[#0b4a99] text-sm font-bold flex items-center justify-center">2</span>
                 Usage Responsibilities
               </h3>
@@ -59,7 +59,7 @@ export default function TermsView() {
             </div>
 
             <div>
-              <h3 className="text-lg text-white font-semibold mb-3 flex items-center gap-2">
+              <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3 flex items-center gap-2">
                 <span className="w-7 h-7 rounded-lg bg-[#fbc02d]/20 text-[#fbc02d] text-sm font-bold flex items-center justify-center">3</span>
                 Rewards Program (Coming Soon)
               </h3>
@@ -69,7 +69,7 @@ export default function TermsView() {
             </div>
 
             <div>
-              <h3 className="text-lg text-white font-semibold mb-3 flex items-center gap-2">
+              <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3 flex items-center gap-2">
                 <span className="w-7 h-7 rounded-lg bg-[#512da8]/20 text-[#512da8] text-sm font-bold flex items-center justify-center">4</span>
                 Financial Disclaimer
               </h3>
@@ -79,7 +79,7 @@ export default function TermsView() {
             </div>
 
             <div>
-              <h3 className="text-lg text-white font-semibold mb-3 flex items-center gap-2">
+              <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3 flex items-center gap-2">
                 <span className="w-7 h-7 rounded-lg bg-[#00796b]/20 text-[#00796b] text-sm font-bold flex items-center justify-center">5</span>
                 Account Data & Deletion
               </h3>
@@ -89,7 +89,7 @@ export default function TermsView() {
             </div>
 
             <div>
-              <h3 className="text-lg text-white font-semibold mb-3 flex items-center gap-2">
+              <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3 flex items-center gap-2">
                 <span className="w-7 h-7 rounded-lg bg-[#c2185b]/20 text-[#c2185b] text-sm font-bold flex items-center justify-center">6</span>
                 Modifications to Terms
               </h3>
@@ -98,13 +98,13 @@ export default function TermsView() {
               </p>
             </div>
 
-            <p className="pt-4 text-sm text-gray-500 italic border-t border-gray-800 mt-8">
+            <p className="pt-4 text-sm text-gray-700 dark:text-gray-400 italic border-t border-gray-200 dark:border-gray-800 mt-8">
               *This is a student project. The information provided is for educational and tracking purposes. Last updated: April 2026.
             </p>
           </div>
 
           {/* Back to Login CTA */}
-          <div className="mt-8 pt-6 border-t border-gray-800">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
             <button
               onClick={() => navigate('/login')}
               className="btn-primary w-full flex items-center justify-center gap-2"

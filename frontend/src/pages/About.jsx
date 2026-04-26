@@ -72,27 +72,27 @@ function HeroCard({ hero }) {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           <div
-            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${hero.gradient} flex items-center justify-center text-white shadow-lg`}
+            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${hero.gradient} flex items-center justify-center text-gray-900 dark:text-white shadow-lg`}
           >
             {hero.icon}
           </div>
           <div>
-            <h3 className="font-bold text-white text-base">{hero.name}</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white text-base">{hero.name}</h3>
             <p className="text-xs font-medium" style={{ color: hero.color }}>{hero.lesson}</p>
           </div>
         </div>
         {expanded ? (
-          <ChevronUp size={18} className="text-gray-400 shrink-0" />
+          <ChevronUp size={18} className="text-gray-700 dark:text-gray-400 shrink-0" />
         ) : (
-          <ChevronDown size={18} className="text-gray-400 shrink-0" />
+          <ChevronDown size={18} className="text-gray-700 dark:text-gray-400 shrink-0" />
         )}
       </div>
       
       {expanded && (
-        <div className="animate-fade-in space-y-3 pt-3 border-t border-gray-800">
+        <div className="animate-fade-in space-y-3 pt-3 border-t border-gray-200 dark:border-gray-800">
           <p className="text-sm text-gray-300 italic leading-relaxed">{hero.quote}</p>
-          <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
-            <p className="text-xs text-gray-400">
+          <div className="bg-slate-100 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-300 dark:border-gray-700">
+            <p className="text-xs text-gray-700 dark:text-gray-400">
               <span className="text-[#fbc02d] font-semibold">💰 Money Tip: </span>
               {hero.tip}
             </p>
@@ -117,7 +117,7 @@ export default function About() {
         </h1>
         
         <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed font-light max-w-2xl mx-auto">
-          Welcome to <strong className="text-white">Finance Flow</strong> — the ultimate financial command center for students.
+          Welcome to <strong className="text-gray-900 dark:text-white">Finance Flow</strong> — the ultimate financial command center for students.
           Stop letting your money snap out of existence. Take control, track expenses, and build savings like a superhero building their arsenal.
         </p>
 
@@ -140,24 +140,24 @@ export default function About() {
           <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <Shield className="text-primary" size={24} />
           </div>
-          <h3 className="text-lg font-bold mb-2 text-white">Secure Tracking</h3>
-          <p className="text-sm text-gray-400">Keep your expenses guarded with vibranium-level precision. Every rupee accounted for.</p>
+          <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">Secure Tracking</h3>
+          <p className="text-sm text-gray-700 dark:text-gray-400">Keep your expenses guarded with vibranium-level precision. Every rupee accounted for.</p>
         </div>
         
         <div className="glass-panel p-5 md:p-6 hover:border-blue-500/50 transition-colors group hero-card-glow">
           <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <Zap className="text-blue-400" size={24} />
           </div>
-          <h3 className="text-lg font-bold mb-2 text-white">Lightning Fast</h3>
-          <p className="text-sm text-gray-400">Log expenses and savings with the speed of Quicksilver. No complex forms, just action.</p>
+          <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">Lightning Fast</h3>
+          <p className="text-sm text-gray-700 dark:text-gray-400">Log expenses and savings with the speed of Quicksilver. No complex forms, just action.</p>
         </div>
         
         <div className="glass-panel p-5 md:p-6 hover:border-[#fbc02d]/50 transition-colors group hero-card-glow">
           <div className="w-12 h-12 bg-[#fbc02d]/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <Rocket className="text-[#fbc02d]" size={24} />
           </div>
-          <h3 className="text-lg font-bold mb-2 text-white">Future Ready</h3>
-          <p className="text-sm text-gray-400">Build your savings goals and watch them soar. Your endgame is financial freedom.</p>
+          <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">Future Ready</h3>
+          <p className="text-sm text-gray-700 dark:text-gray-400">Build your savings goals and watch them soar. Your endgame is financial freedom.</p>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ export default function About() {
         <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#fbc02d]">Superhero Financial Wisdom</span>
         </h2>
-        <p className="text-center text-gray-400 mb-8 text-sm md:text-base">Tap on any hero to reveal their secret financial lesson 💡</p>
+        <p className="text-center text-gray-700 dark:text-gray-400 mb-8 text-sm md:text-base">Tap on any hero to reveal their secret financial lesson 💡</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {heroCards.map((hero, idx) => (
@@ -177,10 +177,10 @@ export default function About() {
 
       {/* Bottom Motivational Banner */}
       <div className="glass-panel p-6 md:p-8 text-center bg-gradient-to-r from-primary/10 via-[#512da8]/10 to-[#0b4a99]/10">
-        <p className="text-xl md:text-2xl font-bold text-white mb-2">
+        <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
           "The only limit is the one you set yourself."
         </p>
-        <p className="text-sm text-gray-400">Start your financial journey today. Every hero started somewhere.</p>
+        <p className="text-sm text-gray-700 dark:text-gray-400">Start your financial journey today. Every hero started somewhere.</p>
       </div>
     </div>
   );

@@ -1,48 +1,107 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #e62429; /* Marvel Red */
-  --color-primary-dark: #b81d20;
-  --color-dark-bg: #0a0b10; /* Deep Space Blue */
-  --color-dark-card: #12141f;
-  --color-accent: #fbc02d; /* Gold */
+  --color-primary: var(--color-primary-var);
+  --color-primary-dark: var(--color-primary-dark-var);
+  --color-dark-bg: var(--color-bg-base);
+  --color-dark-card: var(--color-bg-card);
+  --color-accent: var(--color-accent-var);
 }
 
 @layer base {
+  :root {
+    --color-primary-var: #6366f1;
+    --color-primary-dark-var: #4f46e5;
+    --color-bg-base: #f8fafc;
+    --color-bg-card: rgba(255, 255, 255, 0.92);
+    --color-accent-var: #f59e0b;
+    --color-text-main: #0f172a;
+    --color-text-muted: #475569;
+  }
+
+  .dark {
+    --color-primary-var: #e62429;
+    --color-primary-dark-var: #b81d20;
+    --color-bg-base: #0a0b10;
+    --color-bg-card: rgba(18, 20, 31, 0.9);
+    --color-accent-var: #fbc02d;
+    --color-text-main: #f3f4f6;
+    --color-text-muted: #9ca3af;
+  }
+
   body {
-    @apply bg-dark-bg text-gray-100 font-sans antialiased m-0 p-0 overflow-x-hidden;
-    /* Multi-layer Marvel cosmic background */
-    background:
-      radial-gradient(ellipse at 15% 10%, rgba(230, 36, 41, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 20%, rgba(11, 74, 153, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 80%, rgba(251, 192, 45, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 70% 60%, rgba(81, 45, 168, 0.1) 0%, transparent 35%),
-      linear-gradient(180deg, #0a0b10 0%, #0f1118 50%, #0a0b10 100%);
-    background-attachment: fixed;
-    /* Hide scrollbar for an app-like feel */
+    @apply font-sans antialiased m-0 p-0 overflow-x-hidden transition-colors duration-300;
+    background-color: var(--color-bg-base);
+    color: var(--color-text-main);
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   body::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Ensure selects and date inputs inherit correct colours */
+  select, input[type="date"], input[type="number"], input[type="text"], input[type="email"], input[type="password"], textarea {
+    color-scheme: light;
+  }
+  .dark select,
+  .dark input[type="date"],
+  .dark input[type="number"],
+  .dark input[type="text"],
+  .dark input[type="email"],
+  .dark input[type="password"],
+  .dark textarea {
+    color-scheme: dark;
   }
 }
 
 /* Glassmorphism utility for cards */
 .glass-panel {
-  @apply bg-[#12141fe6] backdrop-blur-xl border border-gray-700/50 shadow-2xl rounded-2xl;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
+  @apply backdrop-blur-xl rounded-2xl transition-colors duration-300;
+  background-color: var(--color-bg-card);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.08);
+}
+.dark .glass-panel {
+  border: 1px solid rgba(75, 85, 99, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
 }
 
-/* Smooth input styling */
+/* Smooth input styling — light by default, dark via class */
 .input-field {
-  @apply w-full bg-gray-800/80 border border-gray-700 rounded-xl px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white placeholder-gray-500;
+  @apply w-full rounded-xl px-4 py-3 outline-none transition-all;
+  background-color: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  color: #0f172a;
+}
+.input-field::placeholder {
+  color: #64748b;
+}
+.input-field:focus {
+  border-color: var(--color-primary-var);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary-var) 15%, transparent);
+}
+.dark .input-field {
+  background-color: rgba(31, 41, 55, 0.9);
+  border: 1.5px solid #374151;
+  color: #f3f4f6;
+}
+.dark .input-field::placeholder {
+  color: #6b7280;
+}
+.dark .input-field:focus {
+  border-color: var(--color-primary-var);
 }
 
 /* Primary Button */
 .btn-primary {
-  @apply bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl transition-all shadow-[0_0_15px_rgba(230,36,41,0.4)] hover:shadow-[0_0_25px_rgba(230,36,41,0.6)] active:scale-95;
+  @apply font-bold py-3 px-6 rounded-xl transition-all text-white active:scale-95 cursor-pointer;
+  background-color: var(--color-primary-var);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-dark-var);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary-var) 40%, transparent);
 }
 
 /* Slide-up animation for mobile drawer */
@@ -65,17 +124,11 @@
 
 /* Pulse glow for hero cards */
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(230, 36, 41, 0.2); }
-  50% { box-shadow: 0 0 30px rgba(230, 36, 41, 0.4); }
+  0%, 100% { box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary-var) 20%, transparent); }
+  50% { box-shadow: 0 0 30px color-mix(in srgb, var(--color-primary-var) 40%, transparent); }
 }
 .hero-card-glow:hover {
   animation: pulseGlow 2s infinite;
-}
-
-/* Floating particles background overlay */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
 }
 
 /* Custom scrollbar for specific containers */
@@ -86,11 +139,17 @@
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #374151;
+  background: #cbd5e1;
   border-radius: 2px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #374151;
 }
 .custom-scrollbar {
   scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.dark .custom-scrollbar {
   scrollbar-color: #374151 transparent;
 }
 
@@ -98,28 +157,23 @@
 .flip-container {
   perspective: 1200px;
 }
-
 .flip-inner {
   position: relative;
   width: 100%;
   transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
   transform-style: preserve-3d;
 }
-
 .flip-inner.flipped {
   transform: rotateY(180deg);
 }
-
 .flip-front,
 .flip-back {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
 .flip-front {
   /* sits at 0° — visible by default */
 }
-
 .flip-back {
   position: absolute;
   top: 0;

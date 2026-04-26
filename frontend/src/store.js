@@ -19,6 +19,12 @@ export const useStore = create((set) => ({
   user: null,
   isAuthenticated: false,
   termsAccepted: false,
+  theme: localStorage.getItem('theme') || 'light',
+  toggleTheme: () => set((state) => {
+    const newTheme = state.theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme);
+    return { theme: newTheme };
+  }),
   login: (userData, token) => {
     localStorage.setItem('token', token);
     set({ user: userData, isAuthenticated: true, termsAccepted: userData.termsAccepted || false });

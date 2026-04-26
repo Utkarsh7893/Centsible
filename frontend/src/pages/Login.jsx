@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { api, useStore } from '../store';
 import { ArrowRight, UserCircle, Mail, Lock, Eye, EyeOff, Zap, Shield, Target, FileText } from 'lucide-react';
 import Background3D from '../components/Background3D';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Login() {
   const [searchParams] = useSearchParams();
@@ -98,25 +99,25 @@ export default function Login() {
     <div className="relative shrink-0 mt-0.5">
       <input
         type="checkbox"
-        className="peer appearance-none w-[18px] h-[18px] border-2 border-gray-600 rounded bg-[#0a0b10] checked:bg-primary checked:border-primary transition-all cursor-pointer"
+        className="peer appearance-none w-[18px] h-[18px] border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-[#0a0b10] checked:bg-primary checked:border-primary transition-all cursor-pointer"
         checked={checked}
         onChange={e => onChange(e.target.checked)}
       />
-      <svg className="absolute top-[2px] left-[2px] w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+      <svg className="absolute top-[2px] left-[2px] w-3.5 h-3.5 text-gray-900 dark:text-white opacity-0 peer-checked:opacity-100 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
         <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </div>
   );
 
   const TermsBlock = ({ accepted, onChange }) => (
-    <div className="bg-[#1a1c29]/60 border border-gray-700/40 rounded-xl p-4">
+    <div className="bg-slate-100 dark:bg-[#1a1c29]/60 border border-slate-200 dark:border-gray-700/40 rounded-xl p-4 transition-colors duration-300">
       <div className="flex items-center gap-2 mb-2">
-        <FileText size={13} className="text-gray-500" />
-        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Required Agreement</span>
+        <FileText size={13} className="text-gray-700 dark:text-gray-400" />
+        <span className="text-xs font-semibold text-gray-700 dark:text-gray-400 uppercase tracking-wider">Required Agreement</span>
       </div>
       <label className="flex items-start gap-3 cursor-pointer group">
         <Checkbox checked={accepted} onChange={onChange} />
-        <span className="text-xs text-gray-400 group-hover:text-gray-300 leading-relaxed">
+        <span className="text-xs text-gray-700 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 leading-relaxed transition-colors">
           I agree to the{' '}
           <button type="button" onClick={e => { e.stopPropagation(); navigate('/terms-view'); }}
             className="text-primary hover:text-primary-dark underline underline-offset-2 transition-colors font-medium">
@@ -131,19 +132,24 @@ export default function Login() {
   return (
     <div className="min-h-screen flex relative overflow-hidden">
       <Background3D />
+      
+      {/* Theme Toggle Top Right */}
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
 
       {/* Left — Hero Branding (desktop only) */}
       <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-12 relative z-10">
         <div className="max-w-md">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(230,36,41,0.5)]">F</div>
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-gray-900 dark:text-white font-bold shadow-[0_0_15px_rgba(230,36,41,0.5)]">F</div>
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#fbc02d]">Finance Flow</span>
           </div>
-          <h1 className="text-4xl font-black text-white mb-4 leading-tight">
+          <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-4 leading-tight transition-colors">
             Your money.<br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#fbc02d]">Your superpower.</span>
           </h1>
-          <p className="text-gray-400 text-lg mb-10 leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-400 text-lg mb-10 leading-relaxed transition-colors">
             Track expenses, set savings goals, and build financial stability — all with a superhero-level interface designed for students.
           </p>
           <div className="space-y-4">
@@ -152,7 +158,7 @@ export default function Login() {
               { icon: <Target size={16} className="text-[#0b4a99]" />, bg: 'bg-[#0b4a99]/20', text: 'Smart savings goals with rewards' },
               { icon: <Zap size={16} className="text-[#fbc02d]" />, bg: 'bg-[#fbc02d]/20', text: 'Lightning-fast expense logging' },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 text-gray-300">
+              <div key={i} className="flex items-center gap-3 text-gray-600 dark:text-gray-300 transition-colors">
                 <div className={`w-8 h-8 rounded-lg ${item.bg} flex items-center justify-center shrink-0`}>{item.icon}</div>
                 <span className="text-sm">{item.text}</span>
               </div>
@@ -170,58 +176,58 @@ export default function Login() {
             <div className="flip-front glass-panel w-full p-8 md:p-10">
               {/* Mobile logo */}
               <div className="lg:hidden flex items-center justify-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(230,36,41,0.5)]">F</div>
+                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-gray-900 dark:text-white font-bold shadow-[0_0_15px_rgba(230,36,41,0.5)]">F</div>
                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#fbc02d]">Finance Flow</span>
               </div>
 
-              <h2 className="text-2xl font-bold text-white mb-1">Welcome back, Hero</h2>
-              <p className="text-gray-400 mb-6 text-sm">Sign in to continue your financial journey.</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1 transition-colors">Welcome back, Hero</h2>
+              <p className="text-gray-700 dark:text-gray-400 mb-6 text-sm transition-colors">Sign in to continue your financial journey.</p>
 
               {error && <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-xl mb-4 animate-fade-in">{error}</div>}
 
               <form onSubmit={handleSubmit} className="space-y-4 mb-5">
                 <div className="relative">
-                  <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-400" />
                   <input type="email" placeholder="Email address" className="input-field !pl-12"
                     value={email} onChange={e => { setEmail(e.target.value); setError(''); }} required />
                 </div>
                 <div className="relative">
-                  <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-400" />
                   <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-field !pl-12 !pr-12"
                     value={password} onChange={e => { setPassword(e.target.value); setError(''); }} required />
                   <button type="button" onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors">
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
 
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <Checkbox checked={rememberMe} onChange={setRememberMe} />
-                  <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">Remember me</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">Remember me</span>
                 </label>
 
                 <TermsBlock accepted={termsAccepted} onChange={setTermsAccepted} />
 
                 <button type="submit" disabled={loading || !termsAccepted}
-                  className={`w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-xl transition-all disabled:opacity-50 ${termsAccepted ? 'btn-primary' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
+                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-semibold transition-all ${termsAccepted ? 'btn-primary' : 'bg-slate-200 dark:bg-gray-800 text-slate-500 dark:text-gray-500 cursor-not-allowed opacity-70'}`}>
                   {loading ? 'Please wait...' : 'Sign In'}{!loading && <ArrowRight className="w-5 h-5" />}
                 </button>
               </form>
 
               <div className="flex w-full items-center mb-4">
-                <div className="flex-1 h-px bg-gray-700" /><span className="px-3 text-xs text-gray-500 font-medium">OR</span><div className="flex-1 h-px bg-gray-700" />
+                <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700" /><span className="px-3 text-xs text-gray-700 dark:text-gray-400 font-medium">OR</span><div className="flex-1 h-px bg-gray-300 dark:bg-gray-700" />
               </div>
 
               <div className="space-y-3 mb-5">
                 {showGoogleInput && (
                   <div className="relative animate-fade-in">
-                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-400" />
                     <input type="email" placeholder="Enter your Google email" className="input-field !pl-12"
                       value={googleEmail} onChange={e => { setGoogleEmail(e.target.value); setError(''); }} />
                   </div>
                 )}
                 <button onClick={handleGoogleSignIn} disabled={loading || (showGoogleInput && !termsAccepted)}
-                  className={`w-full border font-medium py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 ${termsAccepted || !showGoogleInput ? 'bg-white/5 border-gray-600 hover:bg-white/10 text-white' : 'bg-gray-800/50 border-gray-700 text-gray-500 cursor-not-allowed'}`}>
+                  className="w-full border-2 border-slate-300 dark:border-gray-600 font-medium py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-3 bg-white dark:bg-white/5 text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed">
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -232,12 +238,12 @@ export default function Login() {
                 </button>
 
                 <button onClick={handleGuest} disabled={loading || !termsAccepted}
-                  className={`w-full border font-medium py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 ${termsAccepted ? 'bg-transparent border-gray-700 hover:bg-gray-800/50 text-gray-300 hover:text-white' : 'bg-gray-800/30 border-gray-700 text-gray-500 cursor-not-allowed'}`}>
+                  className="w-full border-2 border-slate-300 dark:border-gray-700 font-medium py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 bg-slate-50 dark:bg-transparent text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-gray-800/50 hover:text-slate-900 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed">
                   <UserCircle className="w-5 h-5" /> Continue as Guest
                 </button>
               </div>
 
-              <p className="text-sm text-center text-gray-400 cursor-pointer" onClick={handleFlip}>
+              <p className="text-sm text-center text-gray-700 dark:text-gray-400 cursor-pointer" onClick={handleFlip}>
                 Don't have an account?{' '}
                 <span className="text-primary font-semibold hover:text-primary-dark transition-colors">Sign Up →</span>
               </p>
@@ -247,27 +253,27 @@ export default function Login() {
             <div className="flip-back glass-panel w-full p-8 md:p-10">
               {/* Mobile logo */}
               <div className="lg:hidden flex items-center justify-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(230,36,41,0.5)]">F</div>
+                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-gray-900 dark:text-white font-bold shadow-[0_0_15px_rgba(230,36,41,0.5)]">F</div>
                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#fbc02d]">Finance Flow</span>
               </div>
 
-              <h2 className="text-2xl font-bold text-white mb-1">Join the Squad 🦸</h2>
-              <p className="text-gray-400 mb-6 text-sm">Create your account and start your journey.</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1 transition-colors">Join the Squad 🦸</h2>
+              <p className="text-gray-700 dark:text-gray-400 mb-6 text-sm transition-colors">Create your account and start your journey.</p>
 
               {regError && <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-xl mb-4 animate-fade-in">{regError}</div>}
 
               <form onSubmit={handleRegister} className="space-y-4 mb-5">
                 <div className="relative">
-                  <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-400" />
                   <input type="email" placeholder="Email address" className="input-field !pl-12"
                     value={regEmail} onChange={e => { setRegEmail(e.target.value); setRegError(''); }} required />
                 </div>
                 <div className="relative">
-                  <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-400" />
                   <input type={showRegPassword ? 'text' : 'password'} placeholder="Create a password" className="input-field !pl-12 !pr-12"
                     value={regPassword} onChange={e => { setRegPassword(e.target.value); setRegError(''); }} required />
                   <button type="button" onClick={() => setShowRegPassword(!showRegPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors">
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
                     {showRegPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
@@ -275,12 +281,12 @@ export default function Login() {
                 <TermsBlock accepted={regTermsAccepted} onChange={setRegTermsAccepted} />
 
                 <button type="submit" disabled={loading || !regTermsAccepted}
-                  className={`w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-xl transition-all disabled:opacity-50 ${regTermsAccepted ? 'btn-primary' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
+                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-semibold transition-all ${regTermsAccepted ? 'btn-primary' : 'bg-slate-200 dark:bg-gray-800 text-slate-500 dark:text-gray-500 cursor-not-allowed opacity-70'}`}>
                   {loading ? 'Creating Account...' : 'Create Account'}{!loading && <ArrowRight className="w-5 h-5" />}
                 </button>
               </form>
 
-              <p className="text-sm text-center text-gray-400 cursor-pointer" onClick={handleFlip}>
+              <p className="text-sm text-center text-gray-700 dark:text-gray-400 cursor-pointer" onClick={handleFlip}>
                 Already have an account?{' '}
                 <span className="text-primary font-semibold hover:text-primary-dark transition-colors">← Sign In</span>
               </p>

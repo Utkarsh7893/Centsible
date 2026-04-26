@@ -40,10 +40,19 @@ const ProtectedRoute = ({ children }) => {
 export default function App() {
   const checkAuth = useStore(state => state.checkAuth);
   const isAuthenticated = useStore(state => state.isAuthenticated);
+  const theme = useStore(state => state.theme);
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   return (
     <BrowserRouter>
