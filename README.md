@@ -1,4 +1,4 @@
-# 💰 Student Finance Tracker
+# 💰 Centsible - Student Finance Tracker
 
 A simple, privacy-friendly financial management web app designed specifically for college students. This app helps users track daily expenses, manage savings goals, and monitor borrowed or lent money — all in one clean and intuitive interface.
 
